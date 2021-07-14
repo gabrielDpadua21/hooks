@@ -20,7 +20,7 @@ const UseMemo = (props) => {
         <div className="UseMemo">
             <PageTitle
                 title="Hook UseMemo"
-                subtitle="Retorna um valor memoizado!"
+                subtitle="Retorna um valor memoizado! (CACHE)"
             />
 
             <SectionTitle title="Exemple #01" />
