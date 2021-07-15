@@ -8,6 +8,10 @@ const UseContext = (props) => {
 
     const context = useContext(DataContext);
 
+    const setNumber = (number) => {
+        context.setState({...context.state, number: context.state.number + number})
+    }
+
     return (
         <div className="UseContext">
             <PageTitle
@@ -17,8 +21,10 @@ const UseContext = (props) => {
 
             <SectionTitle title="Exemple #01" />
             <div className="center">
-                <span className="text">{context.text}</span>
-                <span className="text red">{context.number}</span>
+                <span className="text">{context.state.text}</span>
+                <span className="text red">{context.state.number}</span>
+                <button className="btn" onClick={() => setNumber(+1)}>+1</button>
+                <button className="btn" onClick={() => setNumber(+1)}>-1</button>
             </div>
         </div>
     )
