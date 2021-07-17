@@ -1,16 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle';
 
 import DataContext from '../../data/DataContext';
+import { AppContext } from '../../data/Store';
 
 const UseContext = (props) => {
 
     const context = useContext(DataContext);
 
-    const setNumber = (number) => {
+    const addNumber = (number) => {
         context.setState({...context.state, number: context.state.number + number})
     }
+
+    const {number, text, setNumber, setText} = useContext(AppContext);
+
+    useEffect(() => {
+        if(number > 1240) {
+            setText('Big number...')
+        }
+    }, [number])
 
     return (
         <div className="UseContext">
@@ -23,8 +32,24 @@ const UseContext = (props) => {
             <div className="center">
                 <span className="text">{context.state.text}</span>
                 <span className="text red">{context.state.number}</span>
-                <button className="btn" onClick={() => setNumber(+1)}>+1</button>
-                <button className="btn" onClick={() => setNumber(+1)}>-1</button>
+                <div>
+                    <button className="btn" onClick={() => addNumber(+1)}>+1</button>
+                    <button className="btn" onClick={() => addNumber(+1)}>-1</button>
+                </div>
+            </div>
+
+            <SectionTitle title="Exemple #02" />
+            <div className="center">
+                <span className="text">{text}</span>
+                <span className="text red">{number}</span>
+                <div>
+                    <button className="btn" onClick={() => setNumber(number -1)}>
+                        -1
+                    </button>
+                    <button className="btn" onClick={() => setNumber(number +1)}>
+                        +1
+                    </button>
+                </div>
             </div>
         </div>
     )
