@@ -2,10 +2,17 @@ import React from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle';
 import { useCounter } from '../../hooks/useCounter';
+import { useFetch } from '../../hooks/useFetch';
 
 const UseRef = (props) => {
     
+    const url = 'http://files.cod3r.com.br/curso-react/estados.json';
     const [count, increment, decrement] = useCounter(1000);
+    const response = useFetch(url);
+    
+    const showStates = (states) => {
+        return states.map(state => <li key={state.sigla}>{state.nome} - {state.sigla}</li>)
+    }
     
     return (
         <div className="UseCustom">
@@ -21,6 +28,12 @@ const UseRef = (props) => {
                     <button className="btn" onClick={() => increment()}>+1</button>
                     <button className="btn" onClick={() => decrement()}>-1</button>
                 </div>
+            </div>
+            <SectionTitle title="Exemple #02"/>
+            <div className="center">
+                <ul>
+                    {!response.loading ? showStates(response.data) : false}
+                </ul>
             </div>
         </div>
     )
