@@ -1,36 +1,14 @@
 import React, { useReducer, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle';
-
-const initialState = {
-    cart: [],
-    products: [],
-    user: null,
-    number: 0
-}
-
-function reducer(state, action) {
-    switch(action.type) {
-        case 'numberAdd2':
-            return { ...state, number: state.number + 2 }
-        case 'login':
-            return { ...state, user: {name: action.payload || 'Zeuzz'} }
-        case 'parseInteger':
-            return { ...state, number: parseInt(state.number)}
-        case 'dividedBy25':
-            return { ...state, number: state.number / 25}
-        case 'multiply7':
-            return { ...state, number: state.number * 7}
-        case 'sumN':
-            return { ...state, number: parseInt(state.number) + parseInt(action.number)}
-        default:
-            return state;
-    }
-}
+import { initialState, reducer } from '../../store/config';
+import { login, numberAdd2, parseInteger, multiply7, dividedBy25, sumN } from '../../store/actions';
 
 const UseReducer = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [value, setValue] = useState(0);
+
+    
 
     return (
         <div className="UseReducer">
@@ -50,11 +28,11 @@ const UseReducer = (props) => {
                     {state.number}
                 </span>
                 <div>
-                    <button className="btn" onClick={() => dispatch({type: 'login', payload: 'Frajola'})}>Login</button>
-                    <button className="btn" onClick={() => dispatch({type: 'numberAdd2'})}>+2</button>
-                    <button className="btn" onClick={() => dispatch({type: 'multiply7'})}>x7</button>
-                    <button className="btn" onClick={() => dispatch({type: 'dividedBy25'})}>/25</button>
-                    <button className="btn" onClick={() => dispatch({type: 'parseInteger'})}>Integer</button>
+                    <button className="btn" onClick={() => login(dispatch, 'Zeuss')}>Login</button>
+                    <button className="btn" onClick={() => numberAdd2(dispatch)}>+2</button>
+                    <button className="btn" onClick={() => multiply7(dispatch)}>x7</button>
+                    <button className="btn" onClick={() => dividedBy25(dispatch)}>/25</button>
+                    <button className="btn" onClick={() => parseInteger(dispatch)}>Integer</button>
                 </div>
                 <div>
                     <input 
@@ -63,7 +41,7 @@ const UseReducer = (props) => {
                         value={value}
                         onChange={e => setValue(e.target.value)}
                     />
-                    <button className="btn" onClick={() => dispatch({type: 'sumN', number: value})}>Sum</button>
+                    <button className="btn" onClick={() => sumN(dispatch, value)}>Sum</button>
                 </div>
             </div>
         </div>
